@@ -16,7 +16,7 @@ import webbrowser
 import matplotlib.pyplot as plt
 from python_vehicle_simulator.vehicles import (
     DSRV, frigate, otter, ROVzefakkel, semisub, shipClarke83, supply, tanker, 
-    remus100, torpedo
+    remus100, torpedo, Glider
 )
 from python_vehicle_simulator.lib import (
     printSimInfo, printVehicleinfo, simulate, plotVehicleStates, plotControls, 
@@ -25,11 +25,12 @@ from python_vehicle_simulator.lib import (
 
 ### Simulation parameters ###
 sampleTime = 0.02                   # sample time [seconds]
-N = 10000                           # number of samples
+N = 100000                           # number of samples
 
 # 3D plot and animation settings where browser = {firefox,chrome,safari,etc.}
 numDataPoints = 50                  # number of 3D data points
 FPS = 10                            # frames per second (animated GIF)
+
 filename = '3D_animation.gif'       # data file for animated GIF
 browser = 'safari'                  # browser for visualization of animated GIF
 
@@ -65,8 +66,9 @@ def main():
         '6': lambda: shipClarke83('headingAutopilot', -20.0, 70, 8, 6, 0.7, 0.5, 10.0, 1e5),
         '7': lambda: supply('DPcontrol', 4.0, 4.0, 50.0, 0.5, 20.0),
         '8': lambda: tanker('headingAutopilot', -20, 0.5, 150, 20, 80),
-        '9': lambda: remus100('depthHeadingAutopilot', 30, 50, 1525, 0.5, 170),
+        '9': lambda: remus100('depthHeadingAutopilot', 100, 50, 1525, 0.5, 170),
         '10': lambda: torpedo('depthHeadingAutopilot', 30, 50, 1525, 0.5, 170),
+        '11': lambda: Glider('depthAutopilot', 30),
     }
 
     if no in vehicleOptions:

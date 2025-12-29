@@ -11,3 +11,4 @@ from .supply import *
 from .tanker import *
 from .remus100 import *
 from .torpedo import *
+from .Glider import *
