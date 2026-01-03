@@ -90,8 +90,6 @@ class Glider:
                 + str(r_z) 
                 + " m"
             )
-            from python_vehicle_simulator.lib.glider_mpc_solver import GliderMPCController
-            self.mpc_controller = GliderMPCController(self)
         else:
             self.controlDescription = (
                 "Step inputs for movable mass and net buoyancy"
@@ -237,6 +235,11 @@ class Glider:
         self.wn_d = 0.1                 # 自然频率
         self.zeta_d = 1.0               # 阻尼比
         self.q_max = 5.0 * self.D2R     # 最大角速度限制 (rad/s)
+
+        if self.controlMode == "mpcControl":
+            # 实例化
+            from python_vehicle_simulator.lib.glider_mpc_solver import GliderMPCController
+            self.mpc_controller = GliderMPCController(self)
 
     # 坐标系转换旋转矩阵函数
     
