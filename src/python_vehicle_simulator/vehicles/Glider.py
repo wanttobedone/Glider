@@ -5,6 +5,7 @@ glider.py:
 
     坐标系要以几何中心为原点
     状态机要加一个停留时间
+    由于海水密度会变，排开水质量要显示建模出来不一定等于船体重量
    Class for an underwater glider based on the Seawing glider model from:
    
    Zhang et al. (2013). "Spiraling motion of underwater gliders: Modeling, 
@@ -79,15 +80,24 @@ class Glider:
         # 控制模式
         if controlSystem == "depthAutopilot":
             self.controlDescription = (
-                "Depth autopilot for sawtooth motion, z_d = "
+                "Depth autopilot 用于锯齿运动, z_d = "
                 + str(r_z) 
                 + " m"
             )
+        elif controlSystem == "mpcControl":
+            self.controlDescription = (
+                "MPC control 用于锯齿运动, z_target = "
+                + str(r_z) 
+                + " m"
+            )
+            from python_vehicle_simulator.lib.glider_mpc_solver import GliderMPCController
+            self.mpc_controller = GliderMPCController(self)
         else:
             self.controlDescription = (
                 "Step inputs for movable mass and net buoyancy"
             )
             controlSystem = "stepInput"
+
             
         self.ref_z = r_z
         self.V_c = V_current
@@ -208,8 +218,8 @@ class Glider:
         self.flight_mode = "DIVE"       # initial mode: DIVE or CLIMB
         
         # Target pitch angles for gliding (from paper Fig. 12)
-        self.theta_d_dive = -35.0 * self.D2R   # 下潜时的目标俯仰角 (rad)
-        self.theta_d_climb = 35.0 * self.D2R   # 上升时的目标俯仰角 (rad)
+        self.theta_d_dive = -75.0 * self.D2R   # 下潜时的目标俯仰角 (rad)
+        self.theta_d_climb = 75.0 * self.D2R   # 上升时的目标俯仰角 (rad)
 
         # Net buoyancy commands
         self.m_b_dive = 0.3             # 静吸油、排油指令 (kg)
@@ -484,9 +494,14 @@ class Glider:
         u_control = np.array([r_rx, gamma, m_b], float)
         
         return u_control
-
-    # Depth autopilot
     
+    # MPC控制器
+    def mpcController(self, eta, nu, sampleTime):
+        """MPC控制器"""
+        u_control = self.mpc_controller.compute_control(eta, nu, self.u_actual, sampleTime)
+        return u_control
+
+    # Depth autopilot    
     def depthAutopilot(self, eta, nu, sampleTime):
         """
         u_control = depthAutopilot(eta, nu, sampleTime)

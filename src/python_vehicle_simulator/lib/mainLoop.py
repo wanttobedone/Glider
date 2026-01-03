@@ -87,7 +87,9 @@ def simulate(N, sampleTime, vehicle):
         elif (vehicle.controlMode == 'DPcontrol'):
             u_control = vehicle.DPcontrol(eta,nu,sampleTime)                   
         elif (vehicle.controlMode == 'stepInput'):
-            u_control = vehicle.stepInput(t)          
+            u_control = vehicle.stepInput(t)  
+        elif (vehicle.controlMode == 'mpcControl'):
+            u_control = vehicle.mpcController(eta, nu, sampleTime)     #MPC控制器用于验证   
         
         # Store simulation data in simData
         signals = np.append( np.append( np.append(eta,nu),u_control), u_actual )

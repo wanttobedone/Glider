@@ -68,7 +68,8 @@ def main():
         '8': lambda: tanker('headingAutopilot', -20, 0.5, 150, 20, 80),
         '9': lambda: remus100('depthHeadingAutopilot', 100, 50, 1525, 0.5, 170),
         '10': lambda: torpedo('depthHeadingAutopilot', 30, 50, 1525, 0.5, 170),
-        '11': lambda: Glider('depthAutopilot', 30),
+        '11': lambda: Glider('depthAutopilot', 30), #PID，锯齿运动
+        '12': lambda: Glider('mpcControl', 100),  # MPC控制
     }
 
     if no in vehicleOptions:
