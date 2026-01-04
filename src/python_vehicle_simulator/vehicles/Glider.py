@@ -211,7 +211,12 @@ class Glider:
         # Depth autopilot parameters
         
         # 锯齿运动参数
-        self.z_max = 100.0              # maximum depth (m)
+        # r_z为传入，赋值给z_max判断大小，只有r_z>0才赋值，后续可以添加其他限制
+        # if r_z > 0:
+        #     self.z_max = float(r_z)
+        # else:
+        #     self.z_max = 100.0
+        self.z_max = float(r_z)
         self.z_min = 5.0                # minimum depth (m)
         self.flight_mode = "DIVE"       # initial mode: DIVE or CLIMB
         
@@ -466,8 +471,7 @@ class Glider:
         
         return nu, u_actual
 
-    # Step input for open-loop testing
-    
+    # Step input for open-loop testing   
     def stepInput(self, t):
         """
         u_control = stepInput(t) generates step inputs for testing.
