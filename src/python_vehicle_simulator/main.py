@@ -25,7 +25,7 @@ from python_vehicle_simulator.lib import (
 
 ### Simulation parameters ###
 sampleTime = 0.02                   # sample time [seconds]
-N = 100000                           # number of samples
+N = 10000                           # number of samples
 
 # 3D plot and animation settings where browser = {firefox,chrome,safari,etc.}
 numDataPoints = 50                  # number of 3D data points
@@ -69,7 +69,7 @@ def main():
         '9': lambda: remus100('depthHeadingAutopilot', 100, 50, 1525, 0.5, 170),
         '10': lambda: torpedo('depthHeadingAutopilot', 30, 50, 1525, 0.5, 170),
         '11': lambda: Glider('depthAutopilot', 30), #PID，锯齿运动
-        '12': lambda: Glider('mpcControl', 100),  # MPC控制
+        '12': lambda: Glider('mpcControl', 30),  # MPC控制
     }
 
     if no in vehicleOptions:
