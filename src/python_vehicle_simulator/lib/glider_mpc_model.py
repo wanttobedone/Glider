@@ -503,35 +503,3 @@ class GliderMPCModel:
         
         return errors, casadi_traj, numpy_traj
 
-
-# 测试代码
-if __name__ == "__main__":
-    print("Testing GliderMPCModel...")
-    
-    # 创建模型（使用默认参数）
-    model = GliderMPCModel()
-    
-    # 测试动力学函数
-    x_test = np.zeros(15)
-    x_test[6] = 0.3  # V1 = 0.3 m/s
-    x_test[4] = -0.2  # theta = -0.2 rad
-    x_test[12] = 0.4  # r_rx = 0.4 m
-    x_test[14] = 0.3  # m_b = 0.3 kg
-    
-    u_test = np.array([0.001, 0.0, 0.01])  # [r_rx_dot, gamma_dot, m_b_dot]
-    
-    # 计算导数
-    x_dot = model.f_dynamics(x_test, u_test)
-    print("\nTest state:")
-    print(f"  x = {x_test}")
-    print(f"  u = {u_test}")
-    print(f"\nState derivative:")
-    print(f"  x_dot = {np.array(x_dot).flatten()}")
-    
-    # 测试积分器
-    F = model.get_integrator(Ts=0.5)
-    x_next = F(x_test, u_test)
-    print(f"\nNext state (Ts=0.5s):")
-    print(f"  x_next = {np.array(x_next).flatten()}")
-    
-    print("\nGliderMPCModel test completed!")

@@ -221,8 +221,8 @@ class Glider:
         self.flight_mode = "DIVE"       # initial mode: DIVE or CLIMB
         
         # Target pitch angles for gliding (from paper Fig. 12)
-        self.theta_d_dive = -75.0 * self.D2R   # 下潜时的目标俯仰角 (rad)
-        self.theta_d_climb = 75.0 * self.D2R   # 上升时的目标俯仰角 (rad)
+        self.theta_d_dive = -35.0 * self.D2R   # 下潜时的目标俯仰角 (rad)
+        self.theta_d_climb = 35.0 * self.D2R   # 上升时的目标俯仰角 (rad)
 
         # Net buoyancy commands
         self.m_b_dive = 0.3             # 静吸油、排油指令 (kg)
