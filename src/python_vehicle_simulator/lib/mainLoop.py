@@ -40,7 +40,8 @@ def printSimInfo():
     print(' 8 - Tanker: rudder-controlled ship model including shallow water effects, L = 304.8 m')
     print(' 9 - REMUS 100: AUV controlled by stern planes, a tail rudder and a propeller, L = 1.6 m')
     print("10 - Torpedo: Inspired by the REMUS 100 AUV, configurable fins and propeller, L = 1.6 m")
-    print("11 - Seawing Glider: Underwater glider steered by internal mass (Zhang et al. 2013)")
+    print("11 - Seawing Glider: Underwater glider steered by internal mass ")
+    print("12 - Seawing Glider: MPC controller for Zigzag")
     print('---------------------------------------------------------------------------------------')    
     
 ###############################################################################    

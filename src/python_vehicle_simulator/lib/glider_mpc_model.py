@@ -10,7 +10,6 @@ glider_mpc_model.py:
     核心任务：
     - 把Glider.py中的dynamics()从Numpy翻译成CasADi
     - 提供RK4离散化积分器
-    - 验证符号模型与Numpy模型的一致性
 
 Reference: Zhang et al. (2013) - Spiraling motion of underwater gliders
 
